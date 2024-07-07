@@ -26,7 +26,7 @@ Adjust `COMPONENTS_DIR` as necessary:
 > npm run generate
 ```
 
-## Rebuilding the Componen Index
+## Rebuilding the Component Index
 
 ```
 > npm run rebuild-component-index
