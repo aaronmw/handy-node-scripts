@@ -6,19 +6,15 @@ npm install -D git+ssh://git@github.com/aaronmw/handy-node-scripts.git
 
 ## `package.json`
 
+Adjust `COMPONENTS_DIR` as necessary:
+
 ```json
 {
   "scripts": {
-    "generate": "npm explore handy-node-scripts -- npm run generate",
-    "rebuild-component-index": "npm explore handy-node-scripts -- npm run rebuild-component-index"
+    "generate": "COMPONENTS_DIR=src/components npm explore handy-node-scripts -- npm run generate",
+    "rebuild-component-index": "COMPONENTS_DIR=src/components npm explore handy-node-scripts -- npm run rebuild-component-index"
   },
 }
-```
-
-## `.env.local`
-
-```
-HANDY_NODE_SCRIPTS_COMPONENTS_DIRECTORY=src/components
 ```
 
 

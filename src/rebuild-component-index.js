@@ -2,11 +2,11 @@ const fs = require('fs')
 const invariant = require('tiny-invariant')
 
 invariant(
-  process.env.HANDY_NODE_SCRIPTS_COMPONENTS_DIRECTORY,
-  'Environment variable not found: HANDY_NODE_SCRIPTS_COMPONENTS_DIRECTORY'
+  process.env.COMPONENTS_DIR,
+  'Environment variable not found: COMPONENTS_DIR'
 )
 
-const componentsDirectory = `${__dirname}/../../../${process.env.HANDY_NODE_SCRIPTS_COMPONENTS_DIRECTORY}`
+const componentsDirectory = `${__dirname}/../../../${process.env.COMPONENTS_DIR}`
 
 const indexFile = `${componentsDirectory}/index.ts`
 
