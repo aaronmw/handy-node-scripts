@@ -3,7 +3,7 @@ const fs = require('fs')
 
 const { Form } = enquirer
 
-const DEFAULT_COMPONENT_DIRECTORY = `${__dirname}/../src/components`
+const componentsDirectory = `${__dirname}/../../../${process.env.HANDY_NODE_SCRIPTS_COMPONENTS_DIRECTORY}`
 
 const prompt = new Form({
   name: 'user',
@@ -25,7 +25,7 @@ const prompt = new Form({
 prompt.run().then(generateComponent).catch(console.error)
 
 function generateComponent({
-  componentsDirectory = DEFAULT_COMPONENT_DIRECTORY,
+  componentsDirectory = componentsDirectory,
   componentName,
   tagName,
   acceptsChildren,

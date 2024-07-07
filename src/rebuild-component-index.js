@@ -1,6 +1,7 @@
 const fs = require('fs')
 
-const componentsDirectory = `${__dirname}/../src/components`
+const componentsDirectory = `${__dirname}/../../../${process.env.HANDY_NODE_SCRIPTS_COMPONENTS_DIRECTORY}`
+
 const indexFile = `${componentsDirectory}/index.ts`
 
 // Get directories and files in the components directory
