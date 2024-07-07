@@ -9,7 +9,7 @@ npm install -D git+ssh://git@github.com/aaronmw/handy-node-scripts.git
 ```json
 {
   "scripts": {
-    "generate": "npm explore handy-node-scripts -- npm run generate && npm run rebuild-component-index",
+    "generate": "npm explore handy-node-scripts -- npm run generate",
     "rebuild-component-index": "npm explore handy-node-scripts -- npm run rebuild-component-index"
   },
 }
