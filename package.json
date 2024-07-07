@@ -3,8 +3,8 @@
     "version": "0.0.1",
     "private": false,
     "scripts": {
-        "generate": "node ./scripts/generate.js && npm run rebuild-component-index",
-        "rebuild-component-index": "node ./scripts/rebuild-component-index.js"
+        "generate": "node ./src/generate.js && npm run rebuild-component-index",
+        "rebuild-component-index": "node ./src/rebuild-component-index.js"
     },
     "dependencies": {
         "eslint": "^9.6.0",

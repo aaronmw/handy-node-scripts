@@ -1,0 +1,1 @@
+git+ssh://git@github.com/aaronmw/handy-node-scripts.git
