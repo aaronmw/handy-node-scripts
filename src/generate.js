@@ -25,7 +25,6 @@ const prompt = new Form({
 prompt.run().then(generateComponent).catch(console.error)
 
 function generateComponent({
-  componentsDirectory = componentsDirectory,
   componentName,
   tagName,
   acceptsChildren,
