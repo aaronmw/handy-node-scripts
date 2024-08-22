@@ -99,7 +99,7 @@ import { twMerge } from 'tailwind-merge'
 
 ${
   isPolymorphic
-    ? `type ${componentName}Props<T extends ElementType = '${tagName}'> = ${acceptsChildren ? `ComponentProps<'${tagName}'>` : `Omit<ComponentProps<'${tagName}'>, 'children'>`} & {
+    ? `type ${componentName}Props<T extends ElementType = '${tagName}'> = ${acceptsChildren ? `ComponentProps<T>` : `Omit<ComponentProps<T>, 'children'>`} & {
   as?: T
 }`
     : `interface ${componentName}Props extends ${acceptsChildren ? `ComponentProps<'${tagName}'>` : `Omit<ComponentProps<'${tagName}'>, 'children'>`} {}`
