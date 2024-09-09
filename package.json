@@ -5,7 +5,8 @@
     "scripts": {
         "generate": "node ./src/generate.js && npm run rebuild-component-index",
         "generate-contentful-types": "./src/generate-contentful-types.sh",
-        "rebuild-component-index": "node ./src/rebuild-component-index.js"
+        "rebuild-component-index": "node ./src/rebuild-component-index.js",
+        "upgrade-react-19": "npm install --save-exact react@rc react-dom@rc babel-plugin-react-compiler@latest --force"
     },
     "dependencies": {
         "enquirer": "^2.4.1",
