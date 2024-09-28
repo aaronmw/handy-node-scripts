@@ -1,3 +1,4 @@
+import * as prettier from 'prettier'
 const enquirer = require('enquirer')
 const fs = require('fs')
 const invariant = require('tiny-invariant')
@@ -38,7 +39,7 @@ function generateComponent({
   isPolymorphic,
   isSingleFileComponent,
 }) {
-  const newComponentFileContents = buildNewComponentFileContents({
+  const newComponentFileContents = newComponentTemplate({
     componentName,
     tagName,
     acceptsChildren: acceptsChildren.toUpperCase() === 'Y',
@@ -81,7 +82,7 @@ function generateComponent({
   console.log(`Component ${componentName} created at ${componentsDirectory}`)
 }
 
-function buildNewComponentFileContents({
+function newComponentTemplate({
   componentName,
   tagName,
   acceptsChildren,
@@ -153,5 +154,5 @@ function buildNewComponentFileContents({
     `,
   )
 
-  return lines.join('\n')
+  return prettier.format(lines.join('\n'), { parser: 'typescript' })
 }
