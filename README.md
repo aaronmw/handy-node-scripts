@@ -11,14 +11,13 @@ Adjust `COMPONENTS_DIR` as necessary:
 ```json
 {
   "scripts": {
-    "generate": "node ./src/generate.js && npm run rebuild-component-index",
-    "generate-contentful-types": "./src/generate-contentful-types.sh",
-    "rebuild-component-index": "node ./src/rebuild-component-index.js",
+    "generate-contentful-types": "npm explore handy-node-scripts -- npm run generate-contentful-types",
+    "generate": "COMPONENTS_DIR=src/components npm explore handy-node-scripts -- npm run generate",
+    "rebuild-component-index": "COMPONENTS_DIR=src/components npm explore handy-node-scripts -- npm run rebuild-component-index",
     "upgrade-react-19": "npm install --save-exact react@rc react-dom@rc babel-plugin-react-compiler@latest --force"
-  },
+  }
 }
 ```
-
 
 # Usage
 

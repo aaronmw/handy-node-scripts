@@ -31,7 +31,7 @@ const prompt = new Form({
 
 prompt.run().then(generateComponent).catch(console.error)
 
-function generateComponent({
+async function generateComponent({
   componentName,
   tagName,
   acceptsChildren,
@@ -39,7 +39,7 @@ function generateComponent({
   isPolymorphic,
   isSingleFileComponent,
 }) {
-  const newComponentFileContents = newComponentTemplate({
+  const newComponentFileContents = await newComponentTemplate({
     componentName,
     tagName,
     acceptsChildren: acceptsChildren.toUpperCase() === 'Y',
@@ -82,7 +82,7 @@ function generateComponent({
   console.log(`Component ${componentName} created at ${componentsDirectory}`)
 }
 
-function newComponentTemplate({
+async function newComponentTemplate({
   componentName,
   tagName,
   acceptsChildren,
