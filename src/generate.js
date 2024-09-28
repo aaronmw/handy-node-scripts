@@ -1,4 +1,4 @@
-import * as prettier from 'prettier'
+const prettier = require('prettier')
 const enquirer = require('enquirer')
 const fs = require('fs')
 const invariant = require('tiny-invariant')
