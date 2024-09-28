@@ -4,7 +4,7 @@ const invariant = require('tiny-invariant')
 
 invariant(
   process.env.COMPONENTS_DIR,
-  'Environment variable not found: COMPONENTS_DIR'
+  'Environment variable not found: COMPONENTS_DIR',
 )
 
 const { Form } = enquirer
@@ -23,7 +23,7 @@ const prompt = new Form({
     { name: 'tagName', message: 'Wrapping Element:', initial: 'div' },
     { name: 'isPolymorphic', message: 'Polymorphic', initial: 'N' },
     { name: 'acceptsChildren', message: 'Children', initial: 'N' },
-    { name: 'isClientComponent', message: 'Client Component', initial: 'Y' },
+    { name: 'isClientComponent', message: 'Client Component', initial: 'N' },
     { name: 'isSingleFileComponent', message: 'Single File', initial: 'Y' },
   ],
 })
@@ -88,46 +88,70 @@ function buildNewComponentFileContents({
   isClientComponent,
   isPolymorphic,
 }) {
-  return `${
-    isClientComponent
-      ? `'use client'
+  const lines = []
 
-`
-      : ''
-  }import { ComponentProps${isPolymorphic ? `, ElementType` : ''} } from 'react'
-import { twMerge } from 'tailwind-merge'
-
-${
-  isPolymorphic
-    ? `type ${componentName}Props<T extends ElementType = '${tagName}'> = ${acceptsChildren ? `ComponentProps<T>` : `Omit<ComponentProps<T>, 'children'>`} & {
-  as?: T
-}`
-    : `interface ${componentName}Props extends ${acceptsChildren ? `ComponentProps<'${tagName}'>` : `Omit<ComponentProps<'${tagName}'>, 'children'>`} {}`
-}
-
-export function ${componentName}${isPolymorphic ? `<T extends ElementType = '${tagName}'>` : ''}({
-  ${acceptsChildren ? 'children,' : ''}
-  ${isPolymorphic ? 'as,' : ''}
-  className,
-  ...otherProps
-}: ${componentName}Props${isPolymorphic ? '<T>' : ''}) {
-  ${
-    isPolymorphic
-      ? `const Component = String(as || '${tagName}') as ElementType
-`
-      : ''
+  if (isClientComponent) {
+    lines.push(`'use client'`)
   }
-  return (
-    <${isPolymorphic ? 'Component' : tagName}
-      className={twMerge(
-        \`\`,
-        className,
-      )}
-      {...otherProps}
-    >
-      ${acceptsChildren ? '{children}' : ''}
-    </${isPolymorphic ? 'Component' : tagName}>
+
+  lines.push(
+    `import { ComponentProps${
+      isPolymorphic ? `, ElementType` : ''
+    } } from 'react'`,
   )
-}
-`
+  lines.push(`import { twMerge } from 'tailwind-merge'`)
+
+  if (isPolymorphic) {
+    lines.push(`
+      type ${componentName}Props<E extends ElementType = '${tagName}'> = ${
+        acceptsChildren
+          ? `ComponentProps<E>`
+          : `Omit<ComponentProps<E>, 'children'>`
+      } & {
+        as?: E
+      }`)
+  } else {
+    lines.push(
+      `
+        interface ${componentName}Props extends ${
+          acceptsChildren
+            ? `ComponentProps<'${tagName}'>`
+            : `Omit<ComponentProps<'${tagName}'>, 'children'>`
+        } {}
+      `,
+    )
+  }
+
+  lines.push(
+    `
+      export function ${componentName}${
+        isPolymorphic ? `<E extends ElementType = '${tagName}'>` : ''
+      }({
+          ${acceptsChildren ? 'children,' : ''}
+          ${isPolymorphic ? 'as,' : ''}
+          className,
+          ...otherProps
+        }: ${componentName}Props${isPolymorphic ? '<E>' : ''}) {
+    `,
+  )
+
+  if (isPolymorphic) {
+    lines.push(`const Component = String(as || '${tagName}') as ElementType`)
+  }
+
+  lines.push(
+    `
+        return (
+          <${isPolymorphic ? 'Component' : tagName}
+            className={twMerge(\`\`, className)}
+            {...otherProps}
+          >
+            ${acceptsChildren ? '{children}' : ''}
+          </${isPolymorphic ? 'Component' : tagName}>
+        )
+      }
+    `,
+  )
+
+  return lines.join('\n')
 }
