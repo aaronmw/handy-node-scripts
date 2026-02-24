@@ -4,7 +4,7 @@
     "private": false,
     "scripts": {
         "generate": "node ./src/generate.js && npm run rebuild-component-index",
-        "generate-contentful-types": "./src/generate-contentful-types.sh",
+        "generate-types": ". ../../.env.local && cf-content-types-generator --v10 --spaceId $CONTENTFUL_SPACE_ID --token $CONTENTFUL_MANAGEMENT_ACCESS_TOKEN --out ../../src/lib/contentfulTypes",
         "rebuild-component-index": "node ./src/rebuild-component-index.js",
         "upgrade-react-19": "npm install --save-exact react@rc react-dom@rc babel-plugin-react-compiler@latest --force"
     },
